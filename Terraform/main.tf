@@ -13,28 +13,10 @@ provider "aws" {
   region  = "us-east-1"
 }
 
-resource "aws_instance" "ansible_master" {
-  ami           = "ami-007855ac798b5175e"
-  instance_type = "t2.micro"
-  key_name   = "ansible-key-pair2"
-
-  user_data = <<-EOF
-             #!/bin/bash
-             apt-get update
-             apt-get install -y python3 python3-pip
-             pip3 install ansible
-             EOF
-
-  tags = {
-    Name = "ansible-server-1"
-    Owner = "PavelsGrr"
-  }
-}
-
 resource "aws_instance" "ansible_master_2" {
   ami           = "ami-007855ac798b5175e"
   instance_type = "t2.micro"
-  key_name   = "ansible-key-pair2"
+  key_name   = "pavelsJG-amazon-key"
 
   user_data = <<-EOF
              #!/bin/bash
@@ -44,13 +26,15 @@ resource "aws_instance" "ansible_master_2" {
              yum install ansible > /home/ansible/update.log
              EOF
 
+vpc_security_group_ids = [ 
+  aws_security_group.PavelsM_allow_ssh.id, 
+  ] 
+
   tags = {
-    Name = "ansible-server-2"
-    Owner = "PavelsGrr"
+    Name = "PavelsM-ansible-server-2"
+    Owner = "PavelsM"
   }
 }
-
-
 
 resource "aws_instance" "app_server" {
   count         = 2  # number of instances to create
@@ -59,11 +43,11 @@ resource "aws_instance" "app_server" {
   
   
 
-  key_name   = "ansible-key-pair2"
+  key_name   = "pavelsJG-amazon-key"
 
   tags = {
-    Name = "app-server-${count.index+1}"
-    Owner = "PavelsGrr"
+    Name = "PavelsM-app-server-${count.index+1}"
+    Owner = "PavelsM"
   }
 }
 
@@ -72,16 +56,20 @@ resource "aws_instance" "db_server" {
   ami           = "ami-007855ac798b5175e"
   instance_type = "t2.micro"
 
-  key_name   = "ansible-key-pair2"
+  key_name   = "pavelsJG-amazon-key"
+
+vpc_security_group_ids = [
+  aws_security_group.PavelsM_allow_ssh.id,
+  ]
 
   tags = {
-    Name = "db-server-${count.index+1}"
-    Owner = "PavelsGrr"
+    Name = "PavelsM-db-server-${count.index+1}"
+    Owner = "PavelsM"
   }
 }
 
-resource "aws_security_group" "allow_ssh" {
-  name        = "allow_ssh"
+resource "aws_security_group" "PavelsM_allow_ssh" {
+  name        = "PavelsM_allow_ssh"
   description = "Allow SSH inbound traffic"
 
   ingress {
