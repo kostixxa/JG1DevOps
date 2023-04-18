@@ -1,0 +1,11 @@
+---
+- name: Playbook to Install Packages
+  hosts:
+    - webservers
+  tasks:
+  - name: Install php and mariadb
+    package:
+      name:
+        - php
+        - mariadb-server
+      state: present

@@ -1,0 +1,21 @@
+---
+- hosts: webservers
+  become: yes
+  task: 
+    - name: Install Apache
+      appptget:
+        name: httpd
+        state: latest
+    - name: git checkout the website
+      git:
+        dest: /var/www/html
+        repo: https://github.com/<repo_name>
+    - name: Start theApache service
+      service:
+         name: httpd
+         state: started 
+    - name: Open the firewall ports
+      firewalld:
+        service: http
+        permanent: yes
+        state: enabled
