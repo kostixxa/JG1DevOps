@@ -10,7 +10,7 @@
       service:
         name: apache2
         state: started
-	- name: Open the firewall port for HTTP
+    - name: Open the firewall port for HTTP
       ufw:
         rule: allow
         name: 'Apache HTTP'
