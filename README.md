@@ -5,7 +5,7 @@
 1. Wiki link: https://...
 2. Mine branch with code for task 2 and task 3 <branche_name>
 
-# Romans homework
+## Romans homework
 ---
 # Task 1
 
@@ -32,5 +32,22 @@ Result wasn't successful - now error with ssh key!
 Result wasn't successful!
 
 The same error!
+
+
+
+# Task 3
+
+In the Task 3 was a problem with syntax: insted of "appptget:" nedd to use "apt"
+and insted of "firewalld:" need to use "ufw"
+
+Result wasn't successful!
+
+#### Error msg:
+
+fatal: [web1]: UNREACHABLE! => {"changed": false, "msg": "Failed to connect to the host via ssh: Warning: Permanently added '52.23.240.150' (ED25519) to the list of known hosts.\r\nubuntu@52.23.240.150: Permission denied (publickey).", "unreachable": true}
+yes
+fatal: [web2]: UNREACHABLE! => {"changed": false, "msg": "Failed to connect to the host via ssh: Warning: Permanently added '34.203.227.62' (ED25519) to the list of known hosts.\r\nubuntu@34.203.227.62: Permission denied (publickey).", "unreachable": true}
+
+
 
 ---
